@@ -87,9 +87,9 @@ class PasswordManager:
     def add_password(self, site, password):
         if not self.is_valid_password(password):
             print("Password must be at least 9 characters long")
-            print("contain at least one special character (!@#$%^&*)") 
-            print("have both uppercase and lowercase letters") 
-            print("have both uppercase and lowercase letters, and include at least one number.")
+            print("Contain at least one special character (!@#$%^&*)") 
+            print("Have both uppercase and lowercase letters") 
+            print("Include at least one number.")
             return
         self.passwords[site] = password
         self.save_passwords()
