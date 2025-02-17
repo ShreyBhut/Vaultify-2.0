@@ -1,13 +1,15 @@
-# 🔐 Vaultify-2.0
+# 🔐 Vaultify 2.0
 
 A secure and simple command-line password manager written in Python. It allows users to store, retrieve, update, and delete passwords securely using encryption and a master password.
 
-## Features
+## 🌟 Security Features
 
-- Secure encryption using `cryptography.fernet`
-- Master password authentication using `bcrypt`
-- Strong password validation
-- You can store and manage passwords for multiple sites
+- **Master Password**: Required to access stored passwords.
+- **Password Encryption**: All stored passwords are encrypted using `Fernet` encryption.
+- **Password Hashing**: Master password is securely hashed using `bcrypt`.
+- **Strong Password Requirements**: Passwords must include at least 9 characters, an uppercase letter, a lowercase letter, a number, and a special character.
+- **Password Visibility**: While entering the password the password will not be visible on the screen.
+- **Password Confirmation**: Whenever you setup a master password , setup a new password , update password you are required to re enter the password to confirm the password . 
 
 ## 🛠 Installation
 
@@ -44,10 +46,5 @@ If running for the first time, you will be asked to create a master password. Th
 - **Delete a password**: Remove a stored password.
 - **Exit**: Close the application.
 
-## 🌟 Security Features
 
-- **Master Password**: Required to access stored passwords.
-- **Password Encryption**: All stored passwords are encrypted using `Fernet` encryption.
-- **Password Hashing**: Master password is securely hashed using `bcrypt`.
-- **Strong Password Requirements**: Passwords must include at least 9 characters, an uppercase letter, a lowercase letter, a number, and a special character.
 
