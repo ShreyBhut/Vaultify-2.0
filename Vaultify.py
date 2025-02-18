@@ -51,10 +51,8 @@ class PasswordManager:
         while True:
             password = getpass.getpass("Create a master password: ")
             if not self.is_valid_password(password):
-                print("Password must be at least 9 characters long")
-                print("contain at least one special character (!@#$%^&*)") 
-                print("have both uppercase and lowercase letters") 
-                print("have both uppercase and lowercase letters, and include at least one number.")
+                print("Password must be at least 9 characters long, contain at least one special character (!@#$%^&*), "
+                      "have both uppercase and lowercase letters, and include at least one number.")
                 continue
             confirm_password = getpass.getpass("Re-enter master password: ")
             if password != confirm_password:
@@ -84,16 +82,21 @@ class PasswordManager:
             for site, password in self.passwords.items():
                 f.write(f"{site}:{self.encrypt(password)}\n")
 
-    def add_password(self, site, password):
-        if not self.is_valid_password(password):
-            print("Password must be at least 9 characters long")
-            print("Contain at least one special character (!@#$%^&*)") 
-            print("Have both uppercase and lowercase letters") 
-            print("Include at least one number.")
-            return
-        self.passwords[site] = password
-        self.save_passwords()
-        print("Password saved successfully!")
+    def add_password(self, site):
+        while True:
+            password = getpass.getpass("Enter password: ")
+            if not self.is_valid_password(password):
+                print("Password must be at least 9 characters long, contain at least one special character (!@#$%^&*), "
+                      "have both uppercase and lowercase letters, and include at least one number.")
+                continue
+            confirm_password = getpass.getpass("Re-enter password: ")
+            if password != confirm_password:
+                print("Passwords do not match. Try again.")
+                continue
+            self.passwords[site] = password
+            self.save_passwords()
+            print("Password saved successfully!")
+            break
 
     def get_password(self, site):
         return self.passwords.get(site, "Password not found.")
@@ -105,15 +108,25 @@ class PasswordManager:
             return True
         return False
 
-    def update_password(self, site, new_password):
-        if not self.is_valid_password(new_password):
-            print("Password does not meet security requirements!")
+    def update_password(self, site):
+        if site not in self.passwords:
+            print("Site not found!")
             return False
-        if site in self.passwords:
+        while True:
+            new_password = getpass.getpass("Enter new password: ")
+            if not self.is_valid_password(new_password):
+                print("Password must be at least 9 characters long, contain at least one special character (!@#$%^&*), "
+                      "have both uppercase and lowercase letters, and include at least one number.")
+                continue
+            confirm_password = getpass.getpass("Re-enter new password: ")
+            if new_password != confirm_password:
+                print("Passwords do not match. Try again.")
+                continue
             self.passwords[site] = new_password
             self.save_passwords()
+            print("Password updated successfully!")
             return True
-        return False
+
 
 def main():
     pm = PasswordManager()
@@ -139,18 +152,13 @@ def main():
         
         if choice == '1':
             site = input("Enter site name: ")
-            password = getpass.getpass("Enter password: ")
-            pm.add_password(site, password)
+            pm.add_password(site)
         elif choice == '2':
             site = input("Enter site name: ")
             print("Password:", pm.get_password(site))
         elif choice == '3':
             site = input("Enter site name: ")
-            new_password = getpass.getpass("Enter new password: ")
-            if pm.update_password(site, new_password):
-                print("Password updated successfully!")
-            else:
-                print("Site not found!")
+            pm.update_password(site)
         elif choice == '4':
             site = input("Enter site name: ")
             if pm.delete_password(site):
