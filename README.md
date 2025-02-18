@@ -18,8 +18,7 @@ Ensure you have Python installed on your system.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/password-manager-cli.git
-cd password-manager-cli
+git clone https://github.com/ShreyBhut/Vaultify-2.0.git
 ```
 
 2. Install dependencies:
